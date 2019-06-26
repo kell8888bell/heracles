@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+   <body>
+      <h2>Challenge for Pleo</h2>
+      <label>Please input a numeric value to be formatted:</label>
+      <br />
+      <input id="inputValue" type="text" placeholder="amount" />
+      <br />
+      <button type="button" id="myButton">Submit</button>
+      <p id="letsGo"></p>
+      <script>
+         function checkValue(){
+             while(true){
+                 let input = document.getElementById("inputValue").value;
+                 if (input.length <=0 || isNaN(input)) {
+                     // user pressed Submit, but value is invalid or is null
+                     return "Not a valid number";
+                 } else {
+                     // value is valid on Submit, go do the work
+                     return makeMoney(document.getElementById("inputValue").value);
+                 }
+             }
+         };
+
+         function makeMoney(amount) {
+           decimalCount = 2  //assume it will always have 2 decimal places
+           decSep = "."      //hard coding separators
+           thouSep = " "
+
+           try {
+             const negativeSign = amount < 0 ? "-" : "";  // saves the state of the negative sign from
+                                                          // original amount for use later
+
+             // takes the amount and makes it a string
+             let amountString = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
+
+             // is it long enough to need a thousands separator?
+             let x = (amountString.length > 3) ? amountString.length % 3 : 0;
+
+             // builds the formatted string
+             return negativeSign + (x ? amountString.substr(0, x) + thouSep : '') + amountString.substr(x).replace(/(\d{3})(?=\d)/g, "$1" + thouSep) + (decimalCount ? decSep + Math.abs(amount - amountString).toFixed(decimalCount).slice(2) : "");
+           } catch (e) {
+             console.log(e)  // catch and log any errors to the console
+           }
+         };
+
+         document.getElementById("myButton").addEventListener("click", event => {
+           document.getElementById("letsGo").innerText = "Result: " + checkValue();
+         });
+      </script>
+   </body>
+</html>
