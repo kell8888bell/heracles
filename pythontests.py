@@ -188,19 +188,19 @@ class TestTestGUI():
   ### TESTS FOR BUGS ###
   ######################
 
-  def FAILtest_testRound1(self):
+  def test_testRound1(self):
     # bug where 500.005 rounds to 500.00 and not 500.01
     self.browser.get("http://localhost:1337/FormatMoney.html")
     self.browser.set_window_size(1000, 725)
     assert self.check_result("555.555") == "Result: 555.56"
 
-  def FAILtest_testRound2(self):
+  def test_testRound2(self):
     # bug where -0.00001 rounds to -0.00 and not 0.00
     self.browser.get("http://localhost:1337/FormatMoney.html")
     self.browser.set_window_size(1000, 725)
     assert self.check_result("-0.00001") == "Result: 0.00"
 
-  def FAILtest_testRound3(self):
+  def test_testRound3(self):
     # bug where 500.005 rounds to 500.00 and not 500.01
     self.browser.get("http://localhost:1337/FormatMoney.html")
     self.browser.set_window_size(1000, 725)
